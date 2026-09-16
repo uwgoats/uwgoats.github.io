@@ -1,0 +1,58 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+
+interface Props {
+  entry: CollectionEntry<'logs'>;
+}
+
+const { entry } = Astro.props;
+const { title, date, summary, tags, phase, coverImage, coverAlt } = entry.data;
+const href = `${import.meta.env.BASE_URL}logs/${entry.id}`;
+
+const formattedDate = date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
+---
+
+<a
+  href={href}
+  class="group block overflow-hidden rounded-xl border border-slate-200 bg-white transition hover:border-teal-400 hover:shadow-md dark:border-slate-800 dark:bg-slate-900 dark:hover:border-teal-500"
+>
+  {coverImage && (
+    <Image
+      src={coverImage}
+      alt={coverAlt ?? title}
+      class="h-48 w-full object-cover"
+      widths={[400, 800]}
+      sizes="(max-width: 768px) 100vw, 800px"
+    />
+  )}
+  <div class="p-5">
+    <div class="mb-2 flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+      <time datetime={date.toISOString()}>{formattedDate}</time>
+      {phase && (
+        <>
+          <span aria-hidden="true">&middot;</span>
+          <span class="font-medium text-teal-600 dark:text-teal-400">{phase}</span>
+        </>
+      )}
+    </div>
+    <h3 class="text-lg font-semibold text-slate-900 group-hover:text-teal-600 dark:text-white dark:group-hover:text-teal-400">
+      {title}
+    </h3>
+    <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">{summary}</p>
+    {tags.length > 0 && (
+      <div class="mt-4 flex flex-wrap gap-2">
+        {tags.map((tag) => (
+          <span class="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-300">
+            {tag}
+          </span>
+        ))}
+      </div>
+    )}
+  </div>
+</a>

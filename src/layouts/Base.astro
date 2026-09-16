@@ -1,0 +1,39 @@
+---
+import Header from '../components/Header.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'A capstone project design log documenting iterations and decisions.' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+
+    <script is:inline>
+      (function () {
+        const stored = localStorage.getItem('theme');
+        const theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+  </head>
+  <body>
+    <Header />
+    <main class="mx-auto max-w-4xl px-4 py-10 sm:px-6">
+      <slot />
+    </main>
+    <footer class="mx-auto max-w-4xl px-4 py-10 text-sm text-slate-500 sm:px-6 dark:text-slate-500">
+      <p>Built with Astro &middot; Capstone Design Log</p>
+    </footer>
+  </body>
+</html>

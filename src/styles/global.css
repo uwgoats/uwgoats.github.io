@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+@layer base {
+  html {
+    color-scheme: light dark;
+  }
+
+  body {
+    @apply bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100;
+    @apply font-sans antialiased transition-colors duration-200;
+  }
+
+  .prose-log {
+    @apply max-w-none text-slate-700 dark:text-slate-300;
+  }
+
+  .prose-log h2 {
+    @apply text-xl font-semibold mt-8 mb-3 text-slate-900 dark:text-white;
+  }
+
+  .prose-log h3 {
+    @apply text-lg font-semibold mt-6 mb-2 text-slate-900 dark:text-white;
+  }
+
+  .prose-log p {
+    @apply my-4 leading-relaxed;
+  }
+
+  .prose-log ul {
+    @apply my-4 list-disc pl-6 space-y-1;
+  }
+
+  .prose-log ol {
+    @apply my-4 list-decimal pl-6 space-y-1;
+  }
+
+  .prose-log a {
+    @apply text-teal-600 dark:text-teal-400 underline underline-offset-2 hover:text-teal-500;
+  }
+
+  .prose-log blockquote {
+    @apply border-l-4 border-teal-500/50 pl-4 italic text-slate-600 dark:text-slate-400 my-4;
+  }
+
+  .prose-log code {
+    @apply bg-slate-100 dark:bg-slate-800 rounded px-1.5 py-0.5 text-sm font-mono;
+  }
+
+  .prose-log pre {
+    @apply bg-slate-900 text-slate-100 rounded-lg p-4 overflow-x-auto my-4 text-sm;
+  }
+
+  .prose-log pre code {
+    @apply bg-transparent p-0;
+  }
+
+  .prose-log img {
+    @apply rounded-lg my-6 w-full;
+  }
+}
