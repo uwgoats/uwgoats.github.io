@@ -1,0 +1,96 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+
+const allReferences = await getCollection('references');
+
+const typeLabels: Record<string, string> = {
+  video: 'Video',
+  paper: 'Paper',
+  project: 'Open Source Project',
+  article: 'Article',
+  other: 'Other',
+};
+
+const typeOrder = ['paper', 'project', 'video', 'article', 'other'];
+
+const sorted = allReferences.sort((a, b) => {
+  const orderDiff = typeOrder.indexOf(a.data.type) - typeOrder.indexOf(b.data.type);
+  if (orderDiff !== 0) return orderDiff;
+  return a.data.title.localeCompare(b.data.title);
+});
+
+const entriesWithContent = await Promise.all(
+  sorted.map(async (entry) => ({ entry, Content: (await render(entry)).Content }))
+);
+
+const grouped = new Map<string, typeof entriesWithContent>();
+for (const item of entriesWithContent) {
+  const key = item.entry.data.type;
+  if (!grouped.has(key)) grouped.set(key, []);
+  grouped.get(key)!.push(item);
+}
+---
+
+<Base
+  title="References | Design Log"
+  description="Citations, credits, and inspiration for this project — papers, videos, and open source projects referenced along the way."
+>
+  <h1 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">References</h1>
+  <p class="mt-3 max-w-2xl text-slate-600 dark:text-slate-400">
+    Papers, videos, open source projects, and other works that informed or
+    inspired this project, with a note on how each was used.
+  </p>
+
+  {sorted.length === 0 && (
+    <p class="mt-8 text-slate-500 dark:text-slate-400">No references added yet.</p>
+  )}
+
+  <div class="mt-10 space-y-12">
+    {typeOrder
+      .filter((type) => grouped.has(type))
+      .map((type) => (
+        <section>
+          <h2 class="text-xl font-semibold text-slate-900 dark:text-white">
+            {typeLabels[type]}
+          </h2>
+          <ul class="mt-4 space-y-6">
+            {grouped.get(type)!.map(({ entry, Content }) => {
+              const { title, url, author, date } = entry.data;
+              return (
+                <li class="rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
+                  <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                    {url ? (
+                      <a
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-lg font-semibold text-slate-900 hover:text-teal-600 dark:text-white dark:hover:text-teal-400"
+                      >
+                        {title}
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ml-1 inline h-4 w-4 -translate-y-0.5">
+                          <path d="M7 17 17 7M7 7h10v10"></path>
+                        </svg>
+                      </a>
+                    ) : (
+                      <span class="text-lg font-semibold text-slate-900 dark:text-white">{title}</span>
+                    )}
+                    {(author || date) && (
+                      <span class="text-sm text-slate-500 dark:text-slate-400">
+                        {author}
+                        {author && date && ' · '}
+                        {date && date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}
+                      </span>
+                    )}
+                  </div>
+                  <div class="prose-log prose-log-compact mt-2">
+                    <Content />
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ))}
+  </div>
+</Base>

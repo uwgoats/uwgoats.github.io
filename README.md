@@ -25,6 +25,26 @@ Your markdown content goes here.
 
 The entry is automatically picked up — no other file needs to change.
 
+## Adding a reference
+
+Create a new markdown file in `src/content/references/`, named after the source (e.g. `author-title.md`):
+
+```markdown
+---
+title: "Reference Title"
+type: "paper"
+url: "https://example.com"
+author: "Author or Channel Name"
+date: 2026-01-01
+---
+
+A short note on how this source was used or what it inspired.
+```
+
+- `title` and `type` are required. `type` must be one of `paper`, `video`, `project`, `article`, or `other` — this determines which section on the `/references` page it appears in.
+- `url`, `author`, and `date` are optional.
+- The markdown body is the credit/insight note shown under the citation.
+
 ## Local development
 
 Requires [Node.js](https://nodejs.org) (LTS).

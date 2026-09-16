@@ -16,4 +16,15 @@ const logs = defineCollection({
     }),
 });
 
-export const collections = { logs };
+const references = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/references' }),
+  schema: z.object({
+    title: z.string(),
+    type: z.enum(['video', 'paper', 'project', 'article', 'other']),
+    url: z.string().url().optional(),
+    author: z.string().optional(),
+    date: z.coerce.date().optional(),
+  }),
+});
+
+export const collections = { logs, references };

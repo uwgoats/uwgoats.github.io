@@ -64,4 +64,8 @@
   .prose-log img {
     @apply rounded-lg my-6 w-full;
   }
+
+  .prose-log-compact p {
+    @apply my-0 text-sm;
+  }
 }
