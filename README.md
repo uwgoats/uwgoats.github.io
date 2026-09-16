@@ -25,6 +25,42 @@ Your markdown content goes here.
 
 The entry is automatically picked up — no other file needs to change.
 
+### Adding photos
+
+Drop the image file next to the markdown file (or in a subfolder), then reference it two ways:
+
+- **Cover photo** (shown on the card and at the top of the entry): set `coverImage: ./my-photo.jpg` and `coverAlt: "..."` in the frontmatter.
+- **Inline photos** (anywhere in the body): use normal markdown image syntax, e.g. `![Alt text](./my-photo.jpg)`.
+- **Photo gallery** (a grid shown after the body text): add a `gallery` list to the frontmatter:
+
+  ```yaml
+  gallery:
+    - image: ./photo-1.jpg
+      alt: "Alt text"
+      caption: "Optional caption"
+    - image: ./photo-2.jpg
+      alt: "Alt text"
+  ```
+
+All image paths are relative to the entry's own markdown file. Images are automatically optimized and resized at build time.
+
+### Adding video
+
+For video, name the file `.mdx` instead of `.md` (same frontmatter, just a different extension) so you can use the built-in `<Video />` component. Import it at the top of the file, then use it in the body:
+
+```mdx
+import Video from '../../components/Video.astro';
+
+<Video youtube="VIDEO_ID" caption="Optional caption" />
+<Video vimeo="VIDEO_ID" caption="Optional caption" />
+<Video src="videos/my-clip.mp4" caption="Optional caption" />
+```
+
+- `youtube` / `vimeo` take just the video ID from the URL (e.g. `youtube.com/watch?v=VIDEO_ID`).
+- `src` is for a self-hosted video file: put the file in `public/videos/` and reference it as `videos/my-clip.mp4`.
+
+See `src/content/logs/2026-09-17-media-demo.mdx` for a working example of all of the above — delete it once you don't need it as a reference.
+
 ## Adding a reference
 
 Create a new markdown file in `src/content/references/`, named after the source (e.g. `author-title.md`):
@@ -44,6 +80,7 @@ A short note on how this source was used or what it inspired.
 - `title` and `type` are required. `type` must be one of `paper`, `video`, `project`, `article`, or `other` — this determines which section on the `/references` page it appears in.
 - `url`, `author`, and `date` are optional.
 - The markdown body is the credit/insight note shown under the citation.
+- For a YouTube/Vimeo reference, set `type: "video"` and link it via `url` — or use a `.mdx` file with the `<Video />` component (see [Adding video](#adding-video)) to embed it inline.
 
 ## Local development
 

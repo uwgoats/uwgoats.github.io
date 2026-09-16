@@ -1,0 +1,47 @@
+---
+title: "Adding Photos and Video"
+date: 2026-09-17
+summary: "A demo entry showing how to drop in photos, a photo gallery, and embedded video."
+tags: ["reference"]
+phase: "Reference"
+gallery:
+  - image: ./demo-photo.svg
+    alt: "Demo photo one"
+    caption: "First gallery item"
+  - image: ./demo-photo-2.svg
+    alt: "Demo photo two"
+---
+
+import Video from '../../components/Video.astro';
+
+## A single inline photo
+
+Regular markdown image syntax works for any image placed next to this file:
+
+```md
+![Alt text](./my-photo.jpg)
+```
+
+Live example, rendered from an actual file next to this entry:
+
+![Demo photo](./demo-photo.svg)
+
+## A YouTube video
+
+```mdx
+<Video youtube="jNQXAC9IVRw" caption="Optional caption" />
+```
+
+<Video youtube="jNQXAC9IVRw" caption="Example YouTube embed" />
+
+## A local video file
+
+Drop the file in `public/videos/`, then reference it with the path relative
+to `public/`:
+
+```mdx
+<Video src="videos/demo.mp4" caption="Optional caption" />
+```
+
+See the README for the full guide, including how to add a photo gallery via
+frontmatter.

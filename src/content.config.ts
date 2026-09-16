@@ -2,7 +2,7 @@ import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
 const logs = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/logs' }),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/logs' }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -12,12 +12,21 @@ const logs = defineCollection({
       phase: z.string().optional(),
       coverImage: image().optional(),
       coverAlt: z.string().optional(),
+      gallery: z
+        .array(
+          z.object({
+            image: image(),
+            alt: z.string(),
+            caption: z.string().optional(),
+          })
+        )
+        .default([]),
       draft: z.boolean().default(false),
     }),
 });
 
 const references = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/references' }),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/references' }),
   schema: z.object({
     title: z.string(),
     type: z.enum(['video', 'paper', 'project', 'article', 'other']),
