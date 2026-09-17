@@ -1,0 +1,39 @@
+---
+interface Props {
+  youtube?: string;
+  vimeo?: string;
+  src?: string;
+  caption?: string;
+}
+
+const { youtube, vimeo, src, caption } = Astro.props;
+
+const embedUrl = youtube
+  ? `https://www.youtube-nocookie.com/embed/${youtube}`
+  : vimeo
+    ? `https://player.vimeo.com/video/${vimeo}`
+    : undefined;
+
+const localSrc = src ? `${import.meta.env.BASE_URL}${src.replace(/^\//, '')}` : undefined;
+---
+
+<figure class="my-6">
+  {embedUrl && (
+    <div class="relative aspect-video overflow-hidden rounded-lg bg-slate-900">
+      <iframe
+        src={embedUrl}
+        title={caption ?? 'Embedded video'}
+        class="absolute inset-0 h-full w-full"
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+  )}
+  {localSrc && (
+    <video controls class="w-full rounded-lg" src={localSrc}>
+      Your browser doesn't support embedded video. <a href={localSrc}>Download the video</a> instead.
+    </video>
+  )}
+  {caption && <figcaption class="mt-2 text-center text-sm text-slate-500 dark:text-slate-400">{caption}</figcaption>}
+</figure>

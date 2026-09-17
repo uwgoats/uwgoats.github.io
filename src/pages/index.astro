@@ -1,0 +1,71 @@
+---
+import Base from '../layouts/Base.astro';
+import LogCard from '../components/LogCard.astro';
+import { getCollection } from 'astro:content';
+
+const allLogs = await getCollection('logs', ({ data }) => !data.draft);
+const recentLogs = allLogs.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 3);
+
+const base = import.meta.env.BASE_URL;
+---
+
+<Base title="Design Log | Capstone Project">
+  <section class="py-8 sm:py-12">
+    <h1 class="y2k-heading text-4xl font-extrabold uppercase tracking-tight sm:text-5xl">
+      Capstone Design Log
+    </h1>
+    <p class="mt-4 max-w-2xl text-base text-slate-600 sm:text-lg dark:text-slate-400">
+      A running record of decisions, iterations, and lessons learned while
+      building this project — from first sketch to final build.
+    </p>
+    <div class="mt-6">
+      <a href={`${base}logs`} class="btn-y2k">
+        Browse all entries
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-4 w-4">
+          <path d="M5 12h14M12 5l7 7-7 7"></path>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <div class="y2k-divider" aria-hidden="true">
+    <span class="y2k-divider-diamond"></span>
+  </div>
+
+  <section class="y2k-window bg-slate-50 dark:bg-neutral-900">
+    <div class="y2k-window-titlebar">
+      <span class="y2k-window-dot"></span>
+      <span class="y2k-window-dot"></span>
+      <span class="y2k-window-dot"></span>
+      <span class="y2k-window-label">project_proposal.txt</span>
+    </div>
+    <div class="y2k-window-body">
+      <h2 class="text-xl font-semibold text-slate-900 dark:text-white">Project proposal</h2>
+      <div class="prose-log mt-3">
+        <p>
+          Replace this with an intro to your capstone project: the problem
+          you're solving, who it's for, and why it matters.
+        </p>
+        <p>
+          Outline your goals, scope, and the approach you plan to take — this
+          gives visitors context before they dive into the design log entries
+          below.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="y2k-divider" aria-hidden="true">
+    <span class="y2k-divider-diamond"></span>
+  </div>
+
+  <section>
+    <h2 class="mb-4 flex items-center gap-2 text-xl font-semibold text-slate-900 dark:text-white">
+      <span class="inline-block h-4 w-1.5 rounded-full" style="background-image: linear-gradient(180deg, #f8fafc, #94a3b8, #475569, #cbd5e1);"></span>
+      Recent entries
+    </h2>
+    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {recentLogs.map((entry) => <LogCard entry={entry} />)}
+    </div>
+  </section>
+</Base>
