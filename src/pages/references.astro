@@ -36,7 +36,7 @@ for (const item of entriesWithContent) {
   title="References | Design Log"
   description="Citations, credits, and inspiration for this project — papers, videos, and open source projects referenced along the way."
 >
-  <h1 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">References</h1>
+  <h1 class="y2k-heading text-4xl font-extrabold uppercase tracking-tight sm:text-5xl">References</h1>
   <p class="mt-3 max-w-2xl text-slate-600 dark:text-slate-400">
     Papers, videos, open source projects, and other works that informed or
     inspired this project, with a note on how each was used.
@@ -51,14 +51,15 @@ for (const item of entriesWithContent) {
       .filter((type) => grouped.has(type))
       .map((type) => (
         <section>
-          <h2 class="text-xl font-semibold text-slate-900 dark:text-white">
+          <h2 class="flex items-center gap-2 text-xl font-semibold text-slate-900 dark:text-white">
+            <span class="inline-block h-4 w-1.5 rounded-full" style="background-image: linear-gradient(180deg, #f8fafc, #94a3b8, #475569, #cbd5e1);"></span>
             {typeLabels[type]}
           </h2>
           <ul class="mt-4 space-y-6">
             {grouped.get(type)!.map(({ entry, Content }) => {
               const { title, url, author, date } = entry.data;
               return (
-                <li class="rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
+                <li class="y2k-card y2k-bolts rounded-xl border border-slate-200 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-900">
                   <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
                     {url ? (
                       <a

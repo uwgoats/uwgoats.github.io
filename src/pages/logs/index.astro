@@ -10,7 +10,7 @@ const allTags = [...new Set(sortedLogs.flatMap((entry) => entry.data.tags))].sor
 ---
 
 <Base title="All Entries | Design Log">
-  <h1 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Design Log</h1>
+  <h1 class="y2k-heading text-4xl font-extrabold uppercase tracking-tight sm:text-5xl">Design Log</h1>
   <p class="mt-3 max-w-2xl text-slate-600 dark:text-slate-400">
     Every entry, newest first. Filter by tag to focus on a specific area.
   </p>
@@ -19,14 +19,14 @@ const allTags = [...new Set(sortedLogs.flatMap((entry) => entry.data.tags))].sor
     <div class="mt-6 flex flex-wrap gap-2" id="tag-filters">
       <button
         data-tag="all"
-        class="tag-filter-btn rounded-full bg-teal-600 px-3 py-1.5 text-xs font-medium text-white"
+        class="tag-filter-btn y2k-chip y2k-pill-active rounded-full px-3 py-1.5 text-xs font-medium"
       >
         All
       </button>
       {allTags.map((tag) => (
         <button
           data-tag={tag}
-          class="tag-filter-btn rounded-full bg-slate-100 px-3 py-1.5 text-xs font-medium text-slate-600 transition hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
+          class="tag-filter-btn y2k-chip rounded-full bg-slate-100 px-3 py-1.5 text-xs font-medium text-slate-600 transition hover:bg-slate-200 dark:bg-neutral-800 dark:text-slate-300 dark:hover:bg-neutral-700"
         >
           {tag}
         </button>
@@ -52,8 +52,8 @@ const allTags = [...new Set(sortedLogs.flatMap((entry) => entry.data.tags))].sor
   const items = document.querySelectorAll('.log-item');
   const noResults = document.getElementById('no-results');
 
-  const activeClasses = ['bg-teal-600', 'text-white'];
-  const inactiveClasses = ['bg-slate-100', 'text-slate-600', 'dark:bg-slate-800', 'dark:text-slate-300'];
+  const activeClasses = ['y2k-pill-active'];
+  const inactiveClasses = ['bg-slate-100', 'text-slate-600', 'dark:bg-neutral-800', 'dark:text-slate-300'];
 
   function setActive(button) {
     buttons.forEach((btn) => {

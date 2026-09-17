@@ -17,6 +17,12 @@ const { title, description = 'A capstone project design log documenting iteratio
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
     <meta name="description" content={description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
     <title>{title}</title>
 
     <script is:inline>
@@ -29,11 +35,20 @@ const { title, description = 'A capstone project design log documenting iteratio
   </head>
   <body>
     <Header />
+    <div class="y2k-marquee" aria-hidden="true">
+      <div class="y2k-marquee-track">
+        <span>✦ CAPSTONE DESIGN LOG ✦ TRACKING EVERY ITERATION ✦ FROM FIRST SKETCH TO FINAL BUILD ✦</span>
+        <span>✦ CAPSTONE DESIGN LOG ✦ TRACKING EVERY ITERATION ✦ FROM FIRST SKETCH TO FINAL BUILD ✦</span>
+      </div>
+    </div>
     <main class="mx-auto max-w-4xl px-4 py-10 sm:px-6">
       <slot />
     </main>
     <footer class="mx-auto max-w-4xl px-4 py-10 text-sm text-slate-500 sm:px-6 dark:text-slate-500">
-      <p>Built with Astro &middot; Capstone Design Log</p>
+      <p>
+        <span class="y2k-sparkle">✧</span> Built with Astro &middot; Capstone Design Log
+        <span class="y2k-sparkle">✧</span>
+      </p>
     </footer>
   </body>
 </html>
