@@ -22,6 +22,12 @@ const formattedDate = date.toLocaleDateString('en-US', {
   href={href}
   class="y2k-card y2k-bolts group block overflow-hidden rounded-xl border border-slate-200 bg-white transition hover:shadow-lg dark:border-neutral-800 dark:bg-neutral-900"
 >
+  <div class="y2k-window-titlebar">
+    <span class="y2k-window-dot"></span>
+    <span class="y2k-window-dot"></span>
+    <span class="y2k-window-dot"></span>
+    <span class="y2k-window-label">{entry.id}.md</span>
+  </div>
   {coverImage && (
     <Image
       src={coverImage}
