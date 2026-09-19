@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import LogCard from '../components/LogCard.astro';
 import { getCollection } from 'astro:content';
+import { team } from '../data/team';
 
 const allLogs = await getCollection('logs', ({ data }) => !data.draft);
 const recentLogs = allLogs.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 3);
@@ -43,15 +44,54 @@ const base = import.meta.env.BASE_URL;
       <h2 class="text-xl font-semibold text-slate-900 dark:text-white">Project proposal</h2>
       <div class="prose-log mt-3">
         <p>
-          Replace this with an intro to your capstone project: the problem
-          you're solving, who it's for, and why it matters.
+          Humanity is actively working towards establishing a sustained presence on Mars; however, 
+          the Martian surface is extraordinarily hostile to human life, due to unshielded cosmic 
+          radiation, frequent severe dust storms, and extreme temperature swings. Martian lava tubes 
+          offer ideal shielding for future habitats, but they must be mapped, cleared of debris, and 
+          structurally assessed before use [1]. Currently, this process is hazardous for astronauts in 
+          bulky suits due to the dark, uneven, and GPS-denied environment. Existing robotic solutions
+          focus solely on reconnaissance, leaving a critical gap in physical preparation and debris 
+          clearance.
         </p>
         <p>
-          Outline your goals, scope, and the approach you plan to take — this
-          gives visitors context before they dive into the design log entries
-          below.
+          A decentralized robotic swarm is the perfect solution to this problem. Using multiple robots 
+          leverages parallelization, allowing simultaneous exploration to increase efficiency. This 
+          distributed approach also provides critical fault tolerance, individual units failing does 
+          not prevent completion of the mission. Finally, clearing debris requires collaboration, as 
+          large blocks are too heavy for a single unit to transport.
         </p>
       </div>
+    </div>
+  </section>
+
+  <div class="y2k-divider" aria-hidden="true">
+    <span class="y2k-divider-diamond"></span>
+  </div>
+
+  <section>
+    <h2 class="mb-4 flex items-center gap-2 text-xl font-semibold text-slate-900 dark:text-white">
+      <span class="inline-block h-4 w-1.5 rounded-full" style="background-image: linear-gradient(180deg, #f8fafc, #94a3b8, #475569, #cbd5e1);"></span>
+      Team overview
+    </h2>
+    <div class="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
+      {team.map((member) => (
+        <a
+          href={member.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="y2k-card group flex flex-col items-center rounded-xl border border-slate-200 bg-white p-4 text-center transition hover:shadow-lg dark:border-neutral-800 dark:bg-neutral-900"
+        >
+          <img
+            src={`${base}${member.photo.replace(/^\//, '')}`}
+            alt={member.name}
+            class="h-20 w-20 rounded-full object-cover ring-2 ring-slate-200 transition group-hover:ring-teal-500 dark:ring-neutral-700"
+          />
+          <p class="mt-3 text-sm font-semibold text-slate-900 group-hover:text-teal-600 dark:text-white dark:group-hover:text-teal-400">
+            {member.name}
+          </p>
+          <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">{member.subsystem}</p>
+        </a>
+      ))}
     </div>
   </section>
 
