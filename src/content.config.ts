@@ -29,7 +29,10 @@ const references = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/references' }),
   schema: z.object({
     title: z.string(),
-    type: z.enum(['video', 'paper', 'project', 'article', 'other']),
+    type: z.preprocess(
+      (val) => (typeof val === 'string' ? val.toLowerCase() : val),
+      z.enum(['video', 'paper', 'project', 'article', 'other'])
+    ),
     url: z.string().url().optional(),
     author: z.string().optional(),
     date: z.coerce.date().optional(),
