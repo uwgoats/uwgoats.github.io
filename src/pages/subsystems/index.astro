@@ -1,0 +1,42 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const subsystems = [
+  { slug: 'mechanical', label: 'Mechanical' },
+  { slug: 'electrical', label: 'Electrical' },
+  { slug: 'controls', label: 'Controls' },
+  { slug: 'software', label: 'Software' },
+];
+
+const allDecisions = await getCollection('decisions');
+
+const counts = Object.fromEntries(
+  subsystems.map(({ slug }) => [slug, allDecisions.filter((entry) => entry.data.subsystem === slug).length])
+);
+
+const base = import.meta.env.BASE_URL;
+---
+
+<Base title="Subsystems | Design Log">
+  <h1 class="y2k-heading text-4xl font-extrabold uppercase tracking-tight sm:text-5xl">Subsystems</h1>
+  <p class="mt-3 max-w-2xl text-slate-600 dark:text-slate-400">
+    Finalized work decisions, organized by subsystem.
+  </p>
+
+  <div class="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2">
+    {subsystems.map(({ slug, label }) => (
+      <a
+        href={`${base}subsystems/${slug}`}
+        class="y2k-card y2k-bolts group block rounded-xl border border-slate-200 bg-white p-5 transition hover:shadow-lg dark:border-neutral-800 dark:bg-neutral-900"
+      >
+        <h3 class="text-lg font-semibold text-slate-900 group-hover:text-teal-600 dark:text-white dark:group-hover:text-teal-400">
+          {label}
+        </h3>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">
+          {counts[slug]} {counts[slug] === 1 ? 'decision' : 'decisions'}
+        </p>
+      </a>
+    ))}
+  </div>
+</Base>

@@ -39,4 +39,24 @@ const references = defineCollection({
   }),
 });
 
-export const collections = { logs, references };
+const decisions = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/decisions' }),
+  schema: z.object({
+    title: z.string(),
+    subsystem: z.preprocess(
+      (val) => (typeof val === 'string' ? val.toLowerCase() : val),
+      z.enum(['mechanical', 'electrical', 'controls', 'software'])
+    ),
+    date: z.coerce.date(),
+    summary: z.string(),
+    status: z
+      .preprocess(
+        (val) => (typeof val === 'string' ? val.toLowerCase() : val),
+        z.enum(['final', 'proposed', 'superseded'])
+      )
+      .default('final'),
+    tags: z.array(z.string()).default([]),
+  }),
+});
+
+export const collections = { logs, references, decisions };
