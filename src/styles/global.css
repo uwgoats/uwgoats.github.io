@@ -252,10 +252,16 @@
 
   .y2k-marquee-track {
     display: inline-flex;
-    gap: 3rem;
     padding: 0.45rem 0;
-    animation: y2k-marquee-scroll 24s linear infinite;
+    animation: y2k-marquee-scroll 96s linear infinite;
     will-change: transform;
+  }
+
+  .y2k-marquee-group {
+    display: flex;
+    flex-shrink: 0;
+    gap: 3rem;
+    padding-right: 3rem;
   }
 
   .y2k-marquee-track span {
