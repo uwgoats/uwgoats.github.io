@@ -9,7 +9,6 @@ const logs = defineCollection({
       date: z.coerce.date(),
       summary: z.string(),
       tags: z.array(z.string()).default([]),
-      phase: z.string().optional(),
       coverImage: image().optional(),
       coverAlt: z.string().optional(),
       gallery: z
@@ -56,6 +55,7 @@ const decisions = defineCollection({
       )
       .default('final'),
     tags: z.array(z.string()).default([]),
+    draft: z.boolean().default(false),
   }),
 });
 

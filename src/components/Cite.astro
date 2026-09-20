@@ -1,0 +1,13 @@
+---
+import { getSortedReferences } from '../lib/references';
+
+const { id } = Astro.props;
+const refs = await getSortedReferences();
+const index = refs.findIndex((r) => r.id === id);
+if (index === -1) {
+  throw new Error(`<Cite id="${id}" />: no reference with that id in src/content/references`);
+}
+const href = `${import.meta.env.BASE_URL}references#${id}`;
+---
+
+<sup><a href={href} title={refs[index].data.title} class="no-underline">[{index + 1}]</a></sup>

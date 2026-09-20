@@ -28,32 +28,15 @@ const { title, description = 'A capstone project design log documenting iteratio
     <script is:inline>
       (function () {
         const stored = localStorage.getItem('theme');
-        const theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        const theme = stored || 'dark';
         document.documentElement.setAttribute('data-theme', theme);
       })();
     </script>
   </head>
   <body>
     <Header />
-    <div class="y2k-marquee" aria-hidden="true">
-      <div class="y2k-marquee-track">
-        {[0, 1].map(() => (
-          <div class="y2k-marquee-group">
-            {Array.from({ length: 4 }).map(() => (
-              <span>✦ CAPSTONE DESIGN LOG ✦ TRACKING EVERY ITERATION ✦ FROM FIRST SKETCH TO FINAL BUILD ✦</span>
-            ))}
-          </div>
-        ))}
-      </div>
-    </div>
     <main class="mx-auto max-w-4xl px-4 py-10 sm:px-6">
       <slot />
     </main>
-    <footer class="mx-auto max-w-4xl px-4 py-10 text-sm text-slate-500 sm:px-6 dark:text-slate-500">
-      <p>
-        <span class="y2k-sparkle">✧</span> Capstone Design Log
-        <span class="y2k-sparkle">✧</span>
-      </p>
-    </footer>
   </body>
 </html>

@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import LogCard from '../components/LogCard.astro';
+import Cite from '../components/Cite.astro';
 import { getCollection } from 'astro:content';
 import { team } from '../data/team';
 
@@ -19,14 +20,6 @@ const base = import.meta.env.BASE_URL;
       A running record of decisions, iterations, and lessons learned while
       building this project — from first sketch to final build.
     </p>
-    <div class="mt-6">
-      <a href={`${base}logs`} class="btn-y2k">
-        Browse all entries
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-4 w-4">
-          <path d="M5 12h14M12 5l7 7-7 7"></path>
-        </svg>
-      </a>
-    </div>
   </section>
 
   <div class="y2k-divider" aria-hidden="true">
@@ -38,7 +31,7 @@ const base = import.meta.env.BASE_URL;
       <span class="y2k-window-dot"></span>
       <span class="y2k-window-dot"></span>
       <span class="y2k-window-dot"></span>
-      <span class="y2k-window-label">project_proposal.txt</span>
+      <span class="y2k-window-label">project_proposal</span>
     </div>
     <div class="y2k-window-body">
       <h2 class="text-xl font-semibold text-slate-900 dark:text-white">Project proposal</h2>
@@ -48,7 +41,7 @@ const base = import.meta.env.BASE_URL;
           the Martian surface is extraordinarily hostile to human life, due to unshielded cosmic 
           radiation, frequent severe dust storms, and extreme temperature swings. Martian lava tubes 
           offer ideal shielding for future habitats, but they must be mapped, cleared of debris, and 
-          structurally assessed before use [1]. Currently, this process is hazardous for astronauts in 
+          structurally assessed before use <Cite id="lava-tubes-paper" />. Currently, this process is hazardous for astronauts in 
           bulky suits due to the dark, uneven, and GPS-denied environment. Existing robotic solutions
           focus solely on reconnaissance, leaving a critical gap in physical preparation and debris 
           clearance.

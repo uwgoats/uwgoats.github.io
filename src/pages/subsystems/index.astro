@@ -9,7 +9,7 @@ const subsystems = [
   { slug: 'software', label: 'Software' },
 ];
 
-const allDecisions = await getCollection('decisions');
+const allDecisions = await getCollection('decisions', ({ data }) => !data.draft);
 
 const counts = Object.fromEntries(
   subsystems.map(({ slug }) => [slug, allDecisions.filter((entry) => entry.data.subsystem === slug).length])

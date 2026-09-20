@@ -19,7 +19,7 @@ export async function getStaticPaths() {
 const { subsystem } = Astro.params;
 const { label } = Astro.props;
 
-const allDecisions = await getCollection('decisions', ({ data }) => data.subsystem === subsystem);
+const allDecisions = await getCollection('decisions', ({ data }) => !data.draft && data.subsystem === subsystem);
 const sortedDecisions = allDecisions.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 const statusStyles: Record<string, string> = {

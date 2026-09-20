@@ -7,7 +7,7 @@ interface Props {
 }
 
 const { entry } = Astro.props;
-const { title, date, summary, tags, phase, coverImage, coverAlt } = entry.data;
+const { title, date, summary, tags, coverImage, coverAlt } = entry.data;
 const href = `${import.meta.env.BASE_URL}logs/${entry.id}`;
 
 const formattedDate = date.toLocaleDateString('en-US', {
@@ -28,7 +28,7 @@ const fileLabel = entry.id.replace(/^\d{4}-\d{2}-\d{2}-/, '');
     <span class="y2k-window-dot"></span>
     <span class="y2k-window-dot"></span>
     <span class="y2k-window-dot"></span>
-    <span class="y2k-window-label">{fileLabel}.md</span>
+    <span class="y2k-window-label">{fileLabel}</span>
   </div>
   {coverImage && (
     <Image
@@ -42,12 +42,6 @@ const fileLabel = entry.id.replace(/^\d{4}-\d{2}-\d{2}-/, '');
   <div class="p-5">
     <div class="mb-2 flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
       <time datetime={date.toISOString()}>{formattedDate}</time>
-      {phase && (
-        <>
-          <span aria-hidden="true">&middot;</span>
-          <span class="font-medium text-teal-600 dark:text-teal-400">{phase}</span>
-        </>
-      )}
     </div>
     <h3 class="text-lg font-semibold text-slate-900 group-hover:text-teal-600 dark:text-white dark:group-hover:text-teal-400">
       {title}

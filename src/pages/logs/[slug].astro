@@ -13,7 +13,7 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { title, date, summary, tags, phase, coverImage, coverAlt, gallery } = entry.data;
+const { title, date, summary, tags, coverImage, coverAlt, gallery } = entry.data;
 const { Content } = await render(entry);
 
 const formattedDate = date.toLocaleDateString('en-US', {
@@ -37,12 +37,6 @@ const base = import.meta.env.BASE_URL;
   <article class="mt-6">
     <div class="mb-3 flex flex-wrap items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
       <time datetime={date.toISOString()}>{formattedDate}</time>
-      {phase && (
-        <>
-          <span aria-hidden="true">&middot;</span>
-          <span class="font-medium text-teal-600 dark:text-teal-400">{phase}</span>
-        </>
-      )}
     </div>
 
     <h1 class="y2k-heading text-3xl font-extrabold uppercase tracking-tight sm:text-4xl">

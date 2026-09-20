@@ -3,7 +3,6 @@ title: "Martian Habitats v. at-Home Robots"
 date: 2026-08-22
 summary: "Project idea finalizing between two front runners"
 tags: ["planning", "research"]
-phase: "Discovery"
 ---
 
 ## Overview
