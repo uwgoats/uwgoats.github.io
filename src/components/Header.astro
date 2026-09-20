@@ -16,16 +16,26 @@ const subsystems = [
 
 const base = import.meta.env.BASE_URL;
 const current = Astro.url.pathname;
+const isHome = current === base;
 const isSubsystemsActive = current.startsWith(`${base}subsystems`);
 ---
 
 <header class="sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur dark:border-neutral-800 dark:bg-neutral-950/80">
   <div class="mx-auto flex max-w-4xl items-center justify-between px-4 py-4 sm:px-6">
-    <a href={base} class="y2k-chrome text-lg font-bold uppercase tracking-wide">
-      Design Log
+    <a
+      href={base}
+      id="header-brand"
+      class:list={[
+        'y2k-chrome text-lg font-bold uppercase tracking-wide transition-opacity duration-300',
+        isHome && 'pointer-events-none opacity-0',
+      ]}
+      aria-hidden={isHome ? 'true' : undefined}
+      tabindex={isHome ? -1 : undefined}
+    >
+      HOM-E
     </a>
 
-    <div class="flex items-center gap-2">
+    <div class="ml-auto flex items-center gap-2">
       <nav class="hidden items-center gap-1 sm:flex">
         {nav.map((item) => {
           const href = item.href === '/' ? base : `${base}${item.href.slice(1)}`;
@@ -150,6 +160,24 @@ const isSubsystemsActive = current.startsWith(`${base}subsystems`);
 </header>
 
 <script is:inline>
+  // On the home page the brand stays hidden until the "HOM-E" heading scrolls under the header.
+  document.addEventListener('DOMContentLoaded', () => {
+    const brand = document.getElementById('header-brand');
+    const title = document.getElementById('hero-title');
+    if (!brand || !title || brand.getAttribute('aria-hidden') !== 'true') return;
+    const header = brand.closest('header');
+    new IntersectionObserver(
+      ([entry]) => {
+        const show = !entry.isIntersecting;
+        brand.classList.toggle('opacity-0', !show);
+        brand.classList.toggle('pointer-events-none', !show);
+        brand.setAttribute('aria-hidden', String(!show));
+        brand.tabIndex = show ? 0 : -1;
+      },
+      { rootMargin: `-${header ? header.offsetHeight : 64}px 0px 0px 0px` }
+    ).observe(title);
+  });
+
   const menuButton = document.getElementById('mobile-menu-button');
   const menu = document.getElementById('mobile-menu');
   menuButton?.addEventListener('click', () => {
