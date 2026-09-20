@@ -305,6 +305,22 @@
     box-shadow: inset 0 0 0 1px rgba(71, 85, 105, 0.4);
   }
 
+  .y2k-window-dot {
+    transition: background-image 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .y2k-card:hover .y2k-window-dot:nth-child(1) {
+    background-image: radial-gradient(circle at 35% 35%, #fecaca, #ef4444 60%, #b91c1c 100%);
+  }
+
+  .y2k-card:hover .y2k-window-dot:nth-child(2) {
+    background-image: radial-gradient(circle at 35% 35%, #fef08a, #eab308 60%, #a16207 100%);
+  }
+
+  .y2k-card:hover .y2k-window-dot:nth-child(3) {
+    background-image: radial-gradient(circle at 35% 35%, #bbf7d0, #22c55e 60%, #15803d 100%);
+  }
+
   .y2k-window-label {
     margin-left: 0.35rem;
     font-family: var(--font-mono);
